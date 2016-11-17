@@ -1,0 +1,30 @@
+@prefix ada: <http://geographicknowledge.de/vocab/AnalysisData.rdf#> .
+@prefix gis: <http://geographicknowledge.de/vocab/GISConcepts.rdf#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://geographicknowledge.de/mauptest/> .
+
+
+:d1 a ada:DataSet .
+#This is dataset with unique sizes
+:d1 ada:hasElement :e1 . :e1 ada:hasSupport :s1 . :s1  gis:hasSize "5"^^xsd:decimal.
+:d1 ada:hasElement :e2 . :e2 ada:hasSupport :s2 . :s2  gis:hasSize "5"^^xsd:decimal.
+:d1 ada:hasElement :e3 . :e3 ada:hasSupport :s3 . :s3  gis:hasSize "5"^^xsd:decimal.
+:e1 ada:hasMeasure :m1 . 
+:e2 ada:hasMeasure :m2 .   
+:e3 ada:hasMeasure :m3 .  
+#_:q owl:sameAs _:q .
+
+
+
+#This is dataset with non unique sizes
+:d2 a ada:DataSet .
+:d2 ada:hasElement :e4 . :e4 ada:hasSupport :s4 . :s4  gis:hasSize "5"^^xsd:decimal.
+:d2 ada:hasElement :e5 . :e5 ada:hasSupport :s5 . :s5  gis:hasSize "7"^^xsd:decimal.
+:d2 ada:hasElement :e6 . :e6 ada:hasSupport :s6 . :s6  gis:hasSize "2"^^xsd:decimal.
+:e4 ada:hasMeasure :m4 . 
+:e5 ada:hasMeasure :m5 .   
+:e6 ada:hasMeasure :m6 .  
