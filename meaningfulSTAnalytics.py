@@ -82,23 +82,29 @@ def prefixURI(str):
         #print str
     return str
 
-def loadData(g ):
-    file = 'data/mauptest.ttl'
+def loadData(g, file ):
     wf = rdflib.Graph()
     gd = wf.parse(file, format='n3') +g
     print "data loaded"
     return gd
 
-def runQuery( g ):
-    file = 'questions/maupquery.rq'
-    res = g.query(file_to_str('rdf_prefixes.txt') +'\n'+ file_to_str(file))
-    print(80*"-")
-    print('OUTPUT:\n')
-    for i in res:
-        line = ''
-        for j in i:
-            line += ((prefixURI(j)) if (j!=None) else 'None')+' '
-        print(line)
+def runQueries( g, pattern ):
+    queries = glob.glob(pattern)
+    #file = 'questions/maupquery.rq'
+    for q in queries:
+        res = g.query(file_to_str('rdf_prefixes.txt') +'\n'+ file_to_str(q))
+        print(80*"-")
+        print(file_to_str(q))
+        print('OUTPUT:\n')
+        print("number of results:"+str(len(res)))
+        for i in res:
+            line = ''
+            if not bool(i):
+                for j in i:
+                    line += j
+                    #line += ((prefixURI(j)) if (j!=None) else 'None')+' '
+                print(line)
+            else: print(i)
 
 def runConsQuery( g ):
      queries = glob.glob('questions/maupconsquery*.rq')
@@ -117,11 +123,23 @@ def runConsQuery( g ):
 
 def main():
     g = rdflib.ConjunctiveGraph()
-    g = loadData ( g )
-    n_triples(g)
+    #file = 'data/mauptest.ttl'
+    #g = loadData ( g, file )
+    #n_triples(g)
     #g = load_ontologies( g )
-    g = runConsQuery( g )
+    #g = runConsQuery( g )
+    #n_triples(g)
+    file = 'data/testdataset2.ttl'
+    g = loadData ( g, file )
     n_triples(g)
+    for t in g.triples((None, None, None)):
+        print(t)
+    #g = load_ontologies( g )
+    #run_inferences(g)
+    pattern = 'questions/exampleQuery5.rq'
+    #This does not work, seems an implmentation error in rdflib
+    runQueries(g, pattern)
+
 
 if __name__ == '__main__':
     main()

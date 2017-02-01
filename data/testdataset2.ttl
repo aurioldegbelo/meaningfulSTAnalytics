@@ -1,0 +1,5 @@
+@prefix ex: <http://www.example.de#>.
+
+ex:a ex:rel ex:b.
+#ex:c ex:rel2 ex:b.
+

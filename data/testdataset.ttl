@@ -1,0 +1,31 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix xml: <http://www.w3.org/XML/1998/namespace>.
+@prefix gis: <http://geographicknowledge.de/vocab/GISConcepts.rdf#>.
+@prefix ada: <http://geographicknowledge.de/vocab/AnalysisData.rdf#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix geo: <http://www.opengis.net/ont/geosparql#>.
+@prefix td: <http://www.testdata.de#>.
+
+#Substitute all variables with made up instances
+#query 1
+td:l1 ada:hasElement td:e. td:e ada:hasRegion td:r; ada:hasMeasure td:a .
+td:class ada:classOfScheme td:s. td:a a td:class .
+
+#queries 2 and 3
+td:r1 a gis:Region . #geo:sfContains rdfs:subPropertyOf gis:spatialRelation .
+td:r2 a gis:Region. td:r1 geo:sfContains td:r2 .
+
+#queries 4
+td:l a gis:Layer. td:ltgt a gis:Layer. td:rm gis:mergedRegionOf td:l.
+td:vlst ada:ofDataset td:l; ada:ofAttr td:hasMeasure; a ada:ValueList.  
+td:vlst gis:isAggrOf td:lgrd. 
+td:vlsttgt ada:ofDataset td:ltgt; ada:ofAttr td:hasMeasure; a ada:ValueList. 
+td:vlsttgt gis:isAggrOf td:lgrd.
+td:ltgt ada:hasElement td:i. td:i ada:hasRegion td:rtgt. 
+td:rm geo:sfContains td:rtgt.
+td:ltgt ada:hasElement td:i2. td:i2 ada:hasRegion td:rtgt2. 
+#td:rm geo:sfContains td:rtgt2.
+
+

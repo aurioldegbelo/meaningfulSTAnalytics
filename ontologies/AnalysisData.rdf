@@ -1,15 +1,28 @@
 <?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY AnalysisData "http://geographicknowledge.de/vocab/AnalysisData.rdf#" >
+]>
+
+
 <rdf:RDF xmlns="http://geographicknowledge.de/vocab/AnalysisData.rdf#"
      xml:base="http://geographicknowledge.de/vocab/AnalysisData.rdf"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
-     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
-     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:AnalysisData="http://geographicknowledge.de/vocab/AnalysisData.rdf#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <owl:Ontology rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf">
         <rdfs:comment xml:lang="en">This vocabulary is a design pattern to be used for describing analysis data sets on a level that allows to make inferences about the kind of analysis applicable to the dataset</rdfs:comment>
     </owl:Ontology>
@@ -27,44 +40,53 @@
     
 
 
+    <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#classOfScheme -->
+
+    <owl:ObjectProperty rdf:about="&AnalysisData;classOfScheme">
+        <rdfs:comment xml:lang="en">This is a special link to a (local) reference system which is actually a collection of classes. For example, class intervals defined for a choropleth map. The references of this system are classes and the reference systemis a class scheme</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&AnalysisData;referencedBy"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#elementOf -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#elementOf">
-        <owl:inverseOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasElement"/>
-        <rdfs:domain rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Data"/>
-        <rdfs:range rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#DataSet"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;elementOf">
         <rdfs:comment xml:lang="en">The relation between a data item and its data set</rdfs:comment>
+        <rdfs:domain rdf:resource="&AnalysisData;Data"/>
+        <rdfs:range rdf:resource="&AnalysisData;DataSet"/>
+        <owl:inverseOf rdf:resource="&AnalysisData;hasElement"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#hasElement -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasElement">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;hasElement">
         <rdfs:comment xml:lang="en">the inverse of elementOf</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#hasMeasure -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasMeasure">
-        <rdfs:subPropertyOf rdf:resource="http://geographicknowledge.de/vocab/GISConcepts.rdf#hasAttribute"/>
-        <owl:inverseOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#measureOf"/>
-        <rdfs:domain rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Data"/>
-        <rdfs:range rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;hasMeasure">
         <rdfs:comment xml:lang="en">The relation between a data item and its measure</rdfs:comment>
+        <rdfs:domain rdf:resource="&AnalysisData;Data"/>
+        <rdfs:range rdf:resource="&AnalysisData;Reference"/>
+        <owl:inverseOf rdf:resource="&AnalysisData;measureOf"/>
+        <rdfs:subPropertyOf rdf:resource="http://geographicknowledge.de/vocab/GISConcepts.rdf#hasAttribute"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#hasMeasureRef -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasMeasureRef">
+    <owl:ObjectProperty rdf:about="&AnalysisData;hasMeasureRef">
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasMeasure"/>
-            <rdf:Description rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#referencedBy"/>
+            <rdf:Description rdf:about="&AnalysisData;hasMeasure"/>
+            <rdf:Description rdf:about="&AnalysisData;referencedBy"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
@@ -72,24 +94,24 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#hasOWindow -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasOWindow">
-        <rdfs:domain rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#DataSet"/>
-        <rdfs:range rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;hasOWindow">
         <rdfs:comment xml:lang="en">The observation window of a data set. This is a (spatio-temporal) reference for which the data set represents a complete (closed world) observation (all facts that are not observed are wrong).</rdfs:comment>
+        <rdfs:domain rdf:resource="&AnalysisData;DataSet"/>
+        <rdfs:range rdf:resource="&AnalysisData;Reference"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#hasOWindowPart -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasOWindowPart">
+    <owl:ObjectProperty rdf:about="&AnalysisData;hasOWindowPart">
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasElement"/>
-            <rdf:Description rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasSupport"/>
+            <rdf:Description rdf:about="&AnalysisData;hasElement"/>
+            <rdf:Description rdf:about="&AnalysisData;hasSupport"/>
         </owl:propertyChainAxiom>
         <owl:propertyChainAxiom rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasOWindow"/>
-            <rdf:Description rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasPart"/>
+            <rdf:Description rdf:about="&AnalysisData;hasOWindow"/>
+            <rdf:Description rdf:about="&AnalysisData;hasPart"/>
         </owl:propertyChainAxiom>
     </owl:ObjectProperty>
     
@@ -97,61 +119,93 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#hasPart -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasPart">
-        <owl:inverseOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#partOf"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;hasPart">
         <rdfs:comment xml:lang="en">Part of relation between references.</rdfs:comment>
+        <owl:inverseOf rdf:resource="&AnalysisData;partOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#hasRegion -->
+
+    <owl:ObjectProperty rdf:about="&AnalysisData;hasRegion">
+        <rdfs:comment xml:lang="en">describes a data reference which is a region (can be measure or support).</rdfs:comment>
+        <rdfs:domain rdf:resource="&AnalysisData;Data"/>
+        <rdfs:range rdf:resource="&AnalysisData;Spatial"/>
+        <rdfs:subPropertyOf rdf:resource="http://geographicknowledge.de/vocab/GISConcepts.rdf#hasAttribute"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#hasSupport -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasSupport">
-        <rdfs:subPropertyOf rdf:resource="http://geographicknowledge.de/vocab/GISConcepts.rdf#hasAttribute"/>
-        <owl:inverseOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#supportOf"/>
-        <rdfs:domain rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Data"/>
-        <rdfs:range rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;hasSupport">
         <rdfs:comment xml:lang="en">The relation between a data item and its support</rdfs:comment>
+        <rdfs:domain rdf:resource="&AnalysisData;Data"/>
+        <rdfs:range rdf:resource="&AnalysisData;Reference"/>
+        <owl:inverseOf rdf:resource="&AnalysisData;supportOf"/>
+        <rdfs:subPropertyOf rdf:resource="http://geographicknowledge.de/vocab/GISConcepts.rdf#hasAttribute"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#measureOf -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#measureOf"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;measureOf"/>
+    
+
+
+    <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#ofAttr -->
+
+    <owl:ObjectProperty rdf:about="&AnalysisData;ofAttr">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:comment xml:lang="en">Links value lists to some attribute property. This attribute property links items of the dataset of the value list to their references. Used to define a value list. Note this is not in OWL anymore (ranges over properties)</rdfs:comment>
+        <rdfs:domain rdf:resource="&AnalysisData;ValueList"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#ofDataSet -->
+
+    <owl:ObjectProperty rdf:about="&AnalysisData;ofDataSet">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:comment xml:lang="en">This property defines the dataset of a value list. Thereis only one dataset for a value list</rdfs:comment>
+        <rdfs:range rdf:resource="&AnalysisData;DataSet"/>
+        <rdfs:domain rdf:resource="&AnalysisData;ValueList"/>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#partOf -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#partOf">
-        <rdfs:domain rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference"/>
-        <rdfs:range rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;partOf">
+        <rdfs:range rdf:resource="&AnalysisData;Reference"/>
+        <rdfs:domain rdf:resource="&AnalysisData;Reference"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#referencedBy -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#referencedBy">
-        <owl:inverseOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#references"/>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference"/>
-        <rdfs:range rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefSys"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;referencedBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:comment xml:lang="en">The relation between a reference and its reference system. For example, a reference would be 50 and the reference system  may be Celsius</rdfs:comment>
+        <rdfs:range rdf:resource="&AnalysisData;RefSys"/>
+        <rdfs:domain rdf:resource="&AnalysisData;Reference"/>
+        <owl:inverseOf rdf:resource="&AnalysisData;references"/>
     </owl:ObjectProperty>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#references -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#references"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;references"/>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#supportOf -->
 
-    <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#supportOf"/>
+    <owl:ObjectProperty rdf:about="&AnalysisData;supportOf"/>
     
 
 
@@ -159,14 +213,6 @@
 
     <owl:ObjectProperty rdf:about="http://geographicknowledge.de/vocab/GISConcepts.rdf#hasAttribute"/>
     
-
-
-    <!-- http://www.w3.org/2002/07/owl#sameAs 
-
-    <owl:ObjectProperty rdf:about="http://www.w3.org/2002/07/owl#sameAs">
-        <rdfs:subPropertyOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#partOf"/>
-    </owl:ObjectProperty>
-    -->
 
 
     <!-- 
@@ -182,16 +228,16 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#Data -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#Data">
+    <owl:Class rdf:about="&AnalysisData;Data">
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#elementOf"/>
-                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                <owl:onProperty rdf:resource="&AnalysisData;elementOf"/>
+                <owl:someValuesFrom rdf:resource="&owl;Thing"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <owl:disjointWith rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#DataSet"/>
-        <owl:disjointWith rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefSys"/>
-        <owl:disjointWith rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference"/>
+        <owl:disjointWith rdf:resource="&AnalysisData;DataSet"/>
+        <owl:disjointWith rdf:resource="&AnalysisData;RefSys"/>
+        <owl:disjointWith rdf:resource="&AnalysisData;Reference"/>
         <rdfs:comment xml:lang="en">The class of data items. Data items bind together different attributes of an observation, just like table records or primary keys.</rdfs:comment>
     </owl:Class>
     
@@ -199,9 +245,9 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#DataSet -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#DataSet">
-        <owl:disjointWith rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefSys"/>
-        <owl:disjointWith rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference"/>
+    <owl:Class rdf:about="&AnalysisData;DataSet">
+        <owl:disjointWith rdf:resource="&AnalysisData;RefSys"/>
+        <owl:disjointWith rdf:resource="&AnalysisData;Reference"/>
         <rdfs:comment xml:lang="en">The class of data sets (collections of data items)</rdfs:comment>
     </owl:Class>
     
@@ -209,28 +255,28 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#Interval -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#Interval">
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Ordinal"/>
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#ScaleLevel"/>
+    <owl:Class rdf:about="&AnalysisData;Interval">
+        <rdfs:subClassOf rdf:resource="&AnalysisData;Ordinal"/>
+        <rdfs:subClassOf rdf:resource="&AnalysisData;ScaleLevel"/>
     </owl:Class>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#Nominal -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#Nominal">
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#ScaleLevel"/>
+    <owl:Class rdf:about="&AnalysisData;Nominal">
+        <rdfs:subClassOf rdf:resource="&AnalysisData;ScaleLevel"/>
     </owl:Class>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#Object -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#Object">
+    <owl:Class rdf:about="&AnalysisData;Object">
         <owl:equivalentClass>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#referencedBy"/>
-                <owl:someValuesFrom rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#ObjectRS"/>
+                <owl:onProperty rdf:resource="&AnalysisData;referencedBy"/>
+                <owl:someValuesFrom rdf:resource="&AnalysisData;ObjectRS"/>
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
@@ -239,11 +285,11 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#ObjectData -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#ObjectData">
+    <owl:Class rdf:about="&AnalysisData;ObjectData">
         <owl:equivalentClass>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasSupport"/>
-                <owl:someValuesFrom rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Object"/>
+                <owl:onProperty rdf:resource="&AnalysisData;hasSupport"/>
+                <owl:someValuesFrom rdf:resource="&AnalysisData;Object"/>
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
@@ -252,9 +298,9 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#ObjectRS -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#ObjectRS">
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Nominal"/>
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefType"/>
+    <owl:Class rdf:about="&AnalysisData;ObjectRS">
+        <rdfs:subClassOf rdf:resource="&AnalysisData;Nominal"/>
+        <rdfs:subClassOf rdf:resource="&AnalysisData;RefType"/>
         <rdfs:comment xml:lang="en">Object reference systems</rdfs:comment>
     </owl:Class>
     
@@ -262,20 +308,20 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#Ordinal -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#Ordinal">
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Nominal"/>
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#ScaleLevel"/>
+    <owl:Class rdf:about="&AnalysisData;Ordinal">
+        <rdfs:subClassOf rdf:resource="&AnalysisData;Nominal"/>
+        <rdfs:subClassOf rdf:resource="&AnalysisData;ScaleLevel"/>
     </owl:Class>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#Quality -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#Quality">
+    <owl:Class rdf:about="&AnalysisData;Quality">
         <owl:equivalentClass>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#referencedBy"/>
-                <owl:someValuesFrom rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#QualityRS"/>
+                <owl:onProperty rdf:resource="&AnalysisData;referencedBy"/>
+                <owl:someValuesFrom rdf:resource="&AnalysisData;QualityRS"/>
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
@@ -284,11 +330,11 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#QualityData -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#QualityData">
+    <owl:Class rdf:about="&AnalysisData;QualityData">
         <owl:equivalentClass>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasMeasure"/>
-                <owl:someValuesFrom rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Quality"/>
+                <owl:onProperty rdf:resource="&AnalysisData;hasMeasure"/>
+                <owl:someValuesFrom rdf:resource="&AnalysisData;Quality"/>
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
@@ -297,8 +343,8 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#QualityRS -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#QualityRS">
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefType"/>
+    <owl:Class rdf:about="&AnalysisData;QualityRS">
+        <rdfs:subClassOf rdf:resource="&AnalysisData;RefType"/>
         <rdfs:comment xml:lang="en">Quality reference systems</rdfs:comment>
     </owl:Class>
     
@@ -306,16 +352,16 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#Ratio -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#Ratio">
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Interval"/>
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#ScaleLevel"/>
+    <owl:Class rdf:about="&AnalysisData;Ratio">
+        <rdfs:subClassOf rdf:resource="&AnalysisData;Interval"/>
+        <rdfs:subClassOf rdf:resource="&AnalysisData;ScaleLevel"/>
     </owl:Class>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#RefDomain -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefDomain">
+    <owl:Class rdf:about="&AnalysisData;RefDomain">
         <rdfs:comment xml:lang="en">The class of domains of reference systems. This is a class of classes of reference systems, which is not expressible in OWL, but in RDF.</rdfs:comment>
     </owl:Class>
     
@@ -323,8 +369,8 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#RefSys -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefSys">
-        <owl:disjointWith rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference"/>
+    <owl:Class rdf:about="&AnalysisData;RefSys">
+        <owl:disjointWith rdf:resource="&AnalysisData;Reference"/>
         <rdfs:comment xml:lang="en">The class of reference systems</rdfs:comment>
     </owl:Class>
     
@@ -332,15 +378,15 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#RefType -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefType">
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefSys"/>
+    <owl:Class rdf:about="&AnalysisData;RefType">
+        <rdfs:subClassOf rdf:resource="&AnalysisData;RefSys"/>
     </owl:Class>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference">
+    <owl:Class rdf:about="&AnalysisData;Reference">
         <rdfs:comment xml:lang="en">The class of symbols that refer to observable phenomena and belong to a reference system</rdfs:comment>
     </owl:Class>
     
@@ -348,8 +394,8 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#ScaleLevel -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#ScaleLevel">
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefSys"/>
+    <owl:Class rdf:about="&AnalysisData;ScaleLevel">
+        <rdfs:subClassOf rdf:resource="&AnalysisData;RefSys"/>
         <rdfs:comment xml:lang="en">These levels correspond to Stevensons scale levels and could be extended by further ones.</rdfs:comment>
     </owl:Class>
     
@@ -357,8 +403,8 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#SpaceRS -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#SpaceRS">
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefType"/>
+    <owl:Class rdf:about="&AnalysisData;SpaceRS">
+        <rdfs:subClassOf rdf:resource="&AnalysisData;RefType"/>
         <rdfs:comment xml:lang="en">Spatial reference systems</rdfs:comment>
     </owl:Class>
     
@@ -366,11 +412,11 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#Spatial -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#Spatial">
+    <owl:Class rdf:about="&AnalysisData;Spatial">
         <owl:equivalentClass>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#referencedBy"/>
-                <owl:someValuesFrom rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#SpaceRS"/>
+                <owl:onProperty rdf:resource="&AnalysisData;referencedBy"/>
+                <owl:someValuesFrom rdf:resource="&AnalysisData;SpaceRS"/>
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
@@ -379,11 +425,11 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#SpatialData -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#SpatialData">
+    <owl:Class rdf:about="&AnalysisData;SpatialData">
         <owl:equivalentClass>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/GISConcepts.rdf#hasAttribute"/>
-                <owl:someValuesFrom rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Spatial"/>
+                <owl:someValuesFrom rdf:resource="&AnalysisData;Spatial"/>
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
@@ -392,11 +438,11 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#SpatialDataSet -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#SpatialDataSet">
+    <owl:Class rdf:about="&AnalysisData;SpatialDataSet">
         <owl:equivalentClass>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasElement"/>
-                <owl:someValuesFrom rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#SpatialData"/>
+                <owl:onProperty rdf:resource="&AnalysisData;hasElement"/>
+                <owl:someValuesFrom rdf:resource="&AnalysisData;SpatialData"/>
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
@@ -405,11 +451,11 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#Temporal -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#Temporal">
+    <owl:Class rdf:about="&AnalysisData;Temporal">
         <owl:equivalentClass>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#referencedBy"/>
-                <owl:someValuesFrom rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#TimeRS"/>
+                <owl:onProperty rdf:resource="&AnalysisData;referencedBy"/>
+                <owl:someValuesFrom rdf:resource="&AnalysisData;TimeRS"/>
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
@@ -418,11 +464,11 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#TemporalData -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#TemporalData">
+    <owl:Class rdf:about="&AnalysisData;TemporalData">
         <owl:equivalentClass>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/GISConcepts.rdf#hasAttribute"/>
-                <owl:someValuesFrom rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Temporal"/>
+                <owl:someValuesFrom rdf:resource="&AnalysisData;Temporal"/>
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
@@ -431,11 +477,11 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#TemporalDataSet -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#TemporalDataSet">
+    <owl:Class rdf:about="&AnalysisData;TemporalDataSet">
         <owl:equivalentClass>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#hasElement"/>
-                <owl:someValuesFrom rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#TemporalData"/>
+                <owl:onProperty rdf:resource="&AnalysisData;hasElement"/>
+                <owl:someValuesFrom rdf:resource="&AnalysisData;TemporalData"/>
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
@@ -444,20 +490,28 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#TimeRS -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#TimeRS">
-        <rdfs:subClassOf rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#RefType"/>
+    <owl:Class rdf:about="&AnalysisData;TimeRS">
+        <rdfs:subClassOf rdf:resource="&AnalysisData;RefType"/>
         <rdfs:comment xml:lang="en">Temporal reference systems</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#ValueList -->
+
+    <owl:Class rdf:about="&AnalysisData;ValueList">
+        <rdfs:comment>This denotes a list of references, defined over some dataset (using property ofDataSet) and some attribute property of that dataset (using property ofAttr). It is used to talk about value lists as an enity (e.g. a GIS attribute)</rdfs:comment>
     </owl:Class>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#WGS84_C -->
 
-    <owl:Class rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#WGS84_C">
+    <owl:Class rdf:about="&AnalysisData;WGS84_C">
         <owl:equivalentClass>
             <owl:Class>
                 <owl:oneOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#WGS84"/>
+                    <rdf:Description rdf:about="&AnalysisData;WGS84"/>
                 </owl:oneOf>
             </owl:Class>
         </owl:equivalentClass>
@@ -467,7 +521,7 @@
 
     <!-- http://www.w3.org/2002/07/owl#Thing -->
 
-    <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+    <owl:Class rdf:about="&owl;Thing"/>
     
 
 
@@ -484,34 +538,34 @@
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#WGS84 -->
 
-    <owl:Thing rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#WGS84">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-        <rdf:type rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Interval"/>
-        <rdf:type rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#SpaceRS"/>
+    <owl:Thing rdf:about="&AnalysisData;WGS84">
+        <rdf:type rdf:resource="&AnalysisData;Interval"/>
+        <rdf:type rdf:resource="&AnalysisData;SpaceRS"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
     </owl:Thing>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#data1 -->
 
-    <owl:Thing rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#data1">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-        <rdf:type rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Data"/>
-        <hasMeasure rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#m1"/>
+    <owl:Thing rdf:about="&AnalysisData;data1">
+        <rdf:type rdf:resource="&AnalysisData;Data"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <hasMeasure rdf:resource="&AnalysisData;m1"/>
     </owl:Thing>
     
 
 
     <!-- http://geographicknowledge.de/vocab/AnalysisData.rdf#m1 -->
 
-    <owl:Thing rdf:about="http://geographicknowledge.de/vocab/AnalysisData.rdf#m1">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-        <rdf:type rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#Reference"/>
-        <referencedBy rdf:resource="http://geographicknowledge.de/vocab/AnalysisData.rdf#WGS84"/>
+    <owl:Thing rdf:about="&AnalysisData;m1">
+        <rdf:type rdf:resource="&AnalysisData;Reference"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <referencedBy rdf:resource="&AnalysisData;WGS84"/>
     </owl:Thing>
 </rdf:RDF>
 
 
 
-<!-- Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
 
