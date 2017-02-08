@@ -39,40 +39,70 @@ def loadQueries(filepattern):
         queries.append(q)
     return queries
 
-class Outpatterns():
+class Stack:
+     def __init__(self):
+         self.items = []
+
+     def isEmpty(self):
+         return self.items == []
+
+     def push(self, item):
+         self.items.append(item)
+
+     def pop(self):
+         return self.items.pop()
+
+     def peek(self):
+         return self.items[len(self.items)-1]
+
+     def size(self):
+         return len(self.items)
+
+class Outpattern():
     goals = []
     triples=[]
+    rules = Stack()
     minus=[]
     completion=[]
 
-    def __init__(self, goals=[], triples=[], minus=[], completion=[]):
+    def __init__(self, goals=[], triples=[], rules=Stack()):
+        #{"minus"=[], "completion"=[]}
         self.goals=goals
         self.triples=triples
-        self.completion = completion
-        self.minus = minus
-
-    def get(self, state):
-        if state == 'triples':
-            return self.triples
-        elif state == 'minus':
-            return self.minus
-        elif state == 'completion':
-            return self.completion
+        self.rules=rules
 
     def add(self, state, array=[]):
         if state == 'triples':
             self.triples.extend(array)
         elif state == 'minus':
-            self.minus.extend(array)
+            o = Outpattern(triples=array, rules=Stack())
+            self.rules.push(o)
+            print "write rule body: "+ str(array)
+            #self.minus.append(array)
         elif state == 'completion':
-            self.completion.extend(array)
+            r = Outpattern(triples=array)
+            o = self.rules.pop()
+            o.rules.push(r)
+            self.rules.push(o)
+            print "write rule head: "+ str(array)
+            #print "rule: "+ str(o.triples) + '->'+ str(r.triples)
+            print "rule: "+ str(self.rules.items[0].triples) + '->'+ str(o.rules.items[0].triples)
+            #state = 'triples'
 
     def __str__(self):
+        rule = ''
+        for index, p in enumerate(self.rules.items):
+            rule += 'rule '+str(index) +': '
+            rule += str(p.triples)
+            comp = "EmptyQuery"
+            if not p.rules.isEmpty():
+                comp = p.rules.pop().triples
+            rule += ' -> ' + str(comp) +'\n'
         return ('Output patterns: \n'+
         'goals: '+str(self.goals)+'\n'+
         'triples: '+str(self.triples)+'\n'+
-        'minus: '+str(self.minus)+'\n'+
-        'completion: '+str(self.completion)+'\n')
+        'rules: \n '+rule)
+        #'completion: '+str(self.completion)+'\n')
 
 
 #Method transforming queries into RDF
@@ -85,7 +115,7 @@ def parse2RDF(query):
         goals = a['PV']
         print "goals: " +str(goals)
     #initialize output object
-    output = Outpatterns(goals=goals)
+    output = Outpattern(goals=goals)
     transformP(a.name, a, output, 'triples')
     return output
 
@@ -115,11 +145,11 @@ def transformTriplesBlock(pattern,output,state):
     for i in pattern.triples:
         tuple = (i[0],i[1],i[2])
         triplesnew.append(tuple)
-    print 'basic pattern '+pattern.name+': '+str(triplesnew)
+    print 'push basic pattern '+pattern.name+': '+str(triplesnew) +' state:'+state
     output.add(state,triplesnew)
 
 def transformBGP(pattern, output, state):
-    print 'basic pattern '+pattern.name+': '+str(pattern.triples)
+    print 'push basic pattern '+pattern.name+': '+str(pattern.triples)+' state:'+state
     output.add(state,pattern.triples)
 
 def transformJoin(pattern, output, state):
@@ -169,6 +199,7 @@ def transformExp(exname,ex, output, state):
     elif exname=='RelationalExpression':
         if ('!' in ex.op or 'not' in ex.expr):
             #ex.op[]
+            print "push relational pattern: " +str((ex.expr, ex.op, ex.other)) + 'state: ' +state
             output.add('minus',[(ex.expr, ex.op, ex.other)])
 
         print(str(ex.expr)+str(ex.op)+str(ex.other))

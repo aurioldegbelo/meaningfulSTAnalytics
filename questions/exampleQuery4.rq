@@ -10,7 +10,7 @@ PREFIX gis: <http://geographicknowledge.de/vocab/GISConcepts.rdf#>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 
 SELECT ?vlsttgt WHERE { 
-?l a gis:Layer. ?ltgt a gis:Layer. ?rm gis:mergedRegionOf ?l.
+?l a gis:Layer. ?ltgt a gis:Layer. 
 ?vlst ada:ofDataset ?l; ada:ofAttr ?hasMsr; a ada:ValueList.     
 ?vlst gis:isAggrOf ?lgrd. 
 ?vlsttgt ada:ofDataset ?ltgt; ada:ofAttr ?hasMsr; a ada:ValueList. 
@@ -18,7 +18,5 @@ SELECT ?vlsttgt WHERE {
 FILTER(?l != ?ltgt)
 FILTER NOT EXISTS { ?ltgt ada:hasElement ?i. ?i ada:hasRegion ?rtgt. 
 FILTER NOT EXISTS {  
-?rm geo:sfContains ?rtgt 
-}
-}
+?rm geo:sfContains ?rtgt. ?rm gis:mergedRegionOf ?l.}}
 }
